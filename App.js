@@ -1,20 +1,29 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import MainMenu from './src/screens/MainMenu';
+import GameScreen from './src/screens/GameScreen';
+import LeaderboardScreen from './src/screens/LeaderboardScreen';
+import InstructionsScreen from './src/screens/InstructionsScreen';
+import { AppRegistry } from 'react-native';
+import { name as appName } from './app.json';
 
-export default function App() {
+const Stack = createStackNavigator();
+//routes for the screens
+function MainApp() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="MainMenu">
+        <Stack.Screen name="MainMenu" component={MainMenu} options={{ title: 'Main Menu' }} />
+        <Stack.Screen name="GameScreen" component={GameScreen} options={{ title: 'Game' }} />
+        <Stack.Screen name="LeaderboardScreen" component={LeaderboardScreen} options={{ title: 'Leaderboard' }} />
+        <Stack.Screen name="InstructionsScreen" component={InstructionsScreen} options={{ title: 'How to Play' }} />
+       
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+AppRegistry.registerComponent(appName, () => MainApp);
+
+export default MainApp;
